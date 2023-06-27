@@ -1,1 +1,8 @@
 "/subscriptions/d39051a6-d084-493e-8adc-d30ccc25c320/resourceGroups/terraform-rg/providers/Microsoft.Compute/virtualMachines/tfN04VM"
+n04ms01devrg001
+West Central US
+n04ms01devvnet001
+10.236.8.0/22
+dns- 10.236.8.36
+n04ms01mdevsubnet001
+10.236.8.0/27
