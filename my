@@ -6,5 +6,6 @@ n04ms01devvnet001
 dns- 10.236.8.36
 n04ms01mdevsubnet001
 10.236.8.0/27
+n04ms01devnsg001
 "/subscriptions/d39051a6-d084-493e-8adc-d30ccc25c320/resourceGroups/n04ms01devrg001/providers/Microsoft.Compute/virtualMachines/tfN04VM1"
 "/subscriptions/d39051a6-d084-493e-8adc-d30ccc25c320/resourceGroups/n04ms01devrg001/providers/Microsoft.Network/virtualNetworks/n04ms01devvnet001/subnets/n04ms01mdevsubnet001"
