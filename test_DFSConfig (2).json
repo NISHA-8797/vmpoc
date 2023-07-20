@@ -1,0 +1,127 @@
+{
+  "properties": {
+    "template": {
+      "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "DFS1Hostname": {
+          "type": "string"
+        },
+        "DFS2Hostname": {
+          "type": "string"
+        },
+        "DFSConfigureFileURI": {
+          "type": "string"
+        },
+        "DFSRootPath": {
+          "type": "string"
+        },
+        "DFSSharePath": {
+          "type": "string"
+        },
+        "DFSNamespaceFolderName": {
+          "type": "string"
+        },
+        "DFSNamespaceShareName": {
+          "type": "string"
+        },
+        "DFSReplicationGroupName": {
+          "type": "string"
+        },
+        "DFScustomScriptFileToRun": {
+          "type": "string"
+        },
+        "Adminusername": {
+          "type": "string"
+        },
+        "Adminuserpassword": {
+          "type": "string"
+        },
+        "DomainFQDN": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        }
+      },
+      "variables": {
+        ////////////////////////////////////////////////////////
+        //                   DFS Configuration                //
+        ///////////////////////////////////////////////////////       
+        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File', ' ', variables('DFScustomScriptFileToRun'),' ','-DFS1Hostname ','\"', variables('DFS1Hostname'),'\"', ' ', '-DFS2Hostname ','\"', variables('DFS2Hostname'),'\"', ' ', '-Adminusername ','\"', variables('Adminusername'),'\"', ' ', '-Adminuserpassword ','\"', variables('Adminuserpassword'),'\"', ' ', '-DomainFQDN ','\"', variables('DomainFQDN'),'\"', ' ', '-DFSRootPath ','\"', variables('DFSRootPath'),'\"', ' ', '-DFSNamespaceFolderName ','\"', variables('DFSNamespaceFolderName'),'\"', ' ', '-DFSNamespaceShareName ','\"', variables('DFSNamespaceShareName'),'\"', ' ', '-DFSReplicationGroupName ','\"', variables('DFSReplicationGroupName'),'\"', ' ', '-DFSSharePath ','\"', variables('DFSSharePath'),'\"')]"
+      },
+      "resources": [
+        {
+          "type": "Microsoft.Compute/virtualMachines/extensions",
+          "name": "[concat(parameters('DFS1Hostname'), '/InstallDFS')]",
+          "apiVersion": "2015-06-15",
+          "location": "[parameters('location')]",
+          "tags": {
+            "displayName": "DFS Configuration"
+          },
+          "properties": {
+            "publisher": "Microsoft.Compute",
+            "type": "CustomScriptExtension",
+            "typeHandlerVersion": "1.8",
+            "autoUpgradeMinorVersion": true,
+            "settings": {
+              "fileUris": [
+                "[parameters('DFSConfigureFileURI')]"
+              ],
+              "commandToExecute": "[variables('commandToExecute')]"
+            },
+            "protectedSettings": {
+            }
+          },
+          "dependsOn": [
+          ]
+        }
+      ],
+      "outputs": {
+
+      }
+    },
+    "parameters": {
+      "DFS1Hostname": {
+        "value": "##param_vm_dfs01_vmname##"
+      },
+      "DFS2Hostname": {
+        "value": "##param_vm_dfs02_vmname##"
+      },
+      "DFSConfigureFileURI": {
+        "value": "##param_config_dfs_script_configurefileuri##"
+      },
+      "DFSRootPath": {
+        "value": "##param_config_dfs_rootpath##"
+      },
+      "DFSSharePath": {
+        "value": "##param_config_dfs_sharepath##"
+      },
+      "DFSNamespaceFolderName": {
+        "value": "##param_config_dfs_namespacefoldername##"
+      },
+      "DFSNamespaceShareName": {
+        "value": "##param_config_dfs_namespacesharename##"
+      },
+      "DFSReplicationGroupName": {
+        "value": "##param_config_dfs_replicationgroupname##"
+      },
+      "DFScustomScriptFileToRun": {
+        "value": "##param_config_dfs_customscriptfiletorun##"
+      },
+      "Adminusername": {
+        "value": "##param_config_domain_username##"
+      },
+      "Adminuserpassword": {
+        "value": "##param_config_domain_password##"
+      },
+      "DomainFQDN": {
+        "value": "##param_domain##"
+      },
+      "location": {
+        "value": "##param_rgLocation##"
+      }
+    },
+    "mode": "Incremental"
+  }
+}
